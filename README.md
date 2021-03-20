@@ -1,0 +1,1 @@
+# quarkus-inmemory-jparepository-angular-example
