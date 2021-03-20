@@ -1,0 +1,125 @@
+<app-header activeURL="user"></app-header>
+<div class="d-flex" id="wrapper" [ngClass]="toggle ? 'toggled' : ''">
+	<!-- Sidebar -->
+	<div class="bg-light border-right" id="sidebar-wrapper">
+		<ul class="nav flex-column list-group">
+			<li class="nav-item">
+			  <a class="nav-link list-group-item-action" href="/users">Get All Users</a>
+			</li>
+			<li class="nav-item">
+			  <a class="nav-link list-group-item-action btn-info active" href="/user">Create New User</a>
+			</li>
+		</ul>
+	</div>
+
+
+	<!-- /#sidebar-wrapper -->
+
+	<!-- Page Content -->
+	<div id="page-content-wrapper">
+		<div class="container-fluid">
+		<button class="btn btn-sm btn-info" id="menu-toggle" (click)="clickEvent()">Toggle Menu</button>				
+		</div>
+		<br/>
+		<div class="container">
+			<div class="card">
+				<div class="card-header">
+					<strong><i class="fa fa-eye fa-lg"></i> User</strong>
+				</div>
+				<div class="card-body">
+					<div class="row">
+						<label class="col-3 control-label">Id : </label>
+						<div class="col-3">
+							{{viewUser.id}}
+						</div>
+					</div>
+					<div class="row">
+						<label class="col-3 control-label">User Name : </label>
+						<div class="col-3">
+							{{viewUser.loginName}}
+						</div>
+					</div>
+					<div class="row">
+						<label class="col-3 control-label">First Name : </label>
+						<div class="col-3">
+							{{viewUser.firstName}}
+						</div>
+					</div>
+					<div class="row">
+						<label class="col-3 control-label">Last Name : </label>
+						<div class="col-3">
+							{{viewUser.lastName}}
+						</div>
+					</div>
+					<div class="row">
+						<label class="col-3 control-label">Encrypted : </label>
+						<div class="col-3">
+							{{viewUser.encrypted ? 'Yes' : 'No'}}
+						</div>
+					</div>
+					<div class="row">
+						<label class="col-3 control-label">Last Login : </label>
+						<div class="col-3">
+							{{viewUser.lastLogin}}
+						</div>
+					</div>
+					<div class="row">
+						<label class="col-3 control-label">Role : </label>
+						<div class="col-3">
+							{{viewUser.role}}
+						</div>
+					</div>
+					<div class="row">
+						<label class="col-3 control-label">Created By : </label>
+						<div class="col-3">
+							{{viewUser.createdBy}}
+						</div>
+					</div>
+					<div class="row">
+						<label class="col-3 control-label">Created Name : </label>
+						<div class="col-3">
+							{{viewUser.createdName}}
+						</div>
+					</div>
+					<div class="row">
+						<label class="col-3 control-label">Created TS : </label>
+						<div class="col-3">
+							{{viewUser.createdTs}}
+						</div>
+					</div>
+					<div class="row">
+						<label class="col-3 control-label">Last Modified By : </label>
+						<div class="col-3">
+							{{viewUser.lastModifiedBy}}
+						</div>
+					</div>
+					<div class="row">
+						<label class="col-3 control-label">Last Modified Name : </label>
+						<div class="col-3">
+							{{viewUser.lastModifiedName}}
+						</div>
+					</div>
+					<div class="row">
+						<label class="col-3 control-label">Last Modified TS : </label>
+						<div class="col-3">
+							{{viewUser.lastModifiedTs}}
+						</div>
+					</div>
+					<div class="row">
+						<label class="col-3 control-label">Version : </label>
+						<div class="col-3">
+							{{viewUser.version}}
+						</div>
+					</div>
+				</div>
+				<div class="card-footer">
+						<input type="button" id="back"  data-id="adminlanding"  (click)="back()" class="btn btn-info" value="Back"> 
+				</div>
+				
+			</div>
+		</div>				
+	</div>
+	<!-- /#page-content-wrapper -->
+	</div>
+
+<app-footer className="fixed-bottom"></app-footer>

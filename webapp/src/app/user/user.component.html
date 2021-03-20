@@ -1,0 +1,152 @@
+<app-header activeURL="user"></app-header>
+<div class="d-flex" id="wrapper" [ngClass]="toggle ? 'toggled' : ''">
+	<!-- Sidebar -->
+	<div class="bg-light border-right" id="sidebar-wrapper">
+		<ul class="nav flex-column list-group">
+			<li class="nav-item">
+			  <a class="nav-link list-group-item-action" href="/users">Get All Users</a>
+			</li>
+			<li class="nav-item">
+			  <a class="nav-link list-group-item-action btn-info active" href="/user">Create New User</a>
+			</li>
+		</ul>
+	</div>
+
+
+		    <!-- /#sidebar-wrapper -->
+
+		    <!-- Page Content -->
+		    <div id="page-content-wrapper">
+		      <div class="container-fluid">
+				<button class="btn btn-sm btn-info" id="menu-toggle" (click)="clickEvent()">Toggle Menu</button>				
+		      </div>
+			  <br/>
+			  <div class="container">
+					<div class="card">
+						<div class="card-header">
+					  	   <strong><i class="fa fa-plus-circle fa-lg"></i> User</strong>
+						</div>
+						<form class="form-horizontal" [formGroup]="userForm" autocomplete="off">
+							<div class="card-body">
+								   <div class="row">
+										<label class="col-2 control-label">User Name : </label>
+										<div class="col-3 mb-2">
+											<input id="userName" name="userName" [formControl]="userName" placeholder="Enter User Name"
+												class="form-control" type="text" [ngClass]="{ 'is-invalid': submitted && f.userName.errors }">
+										</div>
+										<div class="col-6">
+											<p class="text-danger" *ngIf="submitted && f.userName.errors?.notValidInput; else requiredUsernameError">
+												{{f.userName.errors.notValidInput}}
+											</p>
+											<ng-template class="text-danger" #requiredUsernameError>
+												<p *ngIf="submitted && f.userName.errors">User Name is Required.</p>
+											</ng-template>
+										</div>
+									</div>
+									<div class="row">
+										<label class="col-2 control-label">First Name : </label>
+										<div class="col-3 mb-2">
+											<input id="firstName" name="firstName" [formControl]="firstName" placeholder="Enter First Name"
+												class="form-control" required="true" type="text" value=""
+												[ngClass]="{ 'is-invalid': submitted && f.firstName.errors }">
+										</div>
+										<div class="col-6">
+											<p class="text-danger" *ngIf="submitted && f.firstName.errors">
+												First Name is Required.
+											</p>											
+										</div>
+									</div>
+									<div class="row">
+										<label class="col-2 control-label">Last Name : </label>
+										<div class="col-3 mb-2">
+											<input id="lastName" name="lastName" [formControl]="lastName" placeholder="Enter Last Name"
+												class="form-control" required="true" type="text" value=""
+												[ngClass]="{ 'is-invalid': submitted && f.lastName.errors }">
+										</div>
+										<div class="col-6">
+											<p class="text-danger" *ngIf="submitted && f.lastName.errors">
+												Last Name is Required.
+											</p>											
+										</div>
+									</div>
+									<div class="row" *ngIf="!editUser">
+										<label class="col-2 control-label">Password : </label>
+										<div class="col-3 mb-2">
+											<input id="password" name="password" [formControl]="password" placeholder="Enter Password"
+												class="form-control" type="password" [ngClass]="{ 'is-invalid': submitted && f.password.errors }">
+										</div>
+										<div class="col-6">										
+											<p class="text-danger" *ngIf="submitted && f.password.errors">
+												Password is Required.
+											</p>
+										</div>
+									</div>
+									<div class="row" *ngIf="!editUser">
+										<label class="col-2 control-label">Retype Password : </label>
+										<div class="col-3 mb-2">
+											<input id="repeatPassword" name="repeatPassword" [formControl]="repeatPassword" placeholder="Enter Re type Password"
+												class="form-control" type="password" [ngClass]="{ 'is-invalid': submitted && f.repeatPassword.errors }">
+										</div>
+										<div class="col-6">	
+											<p class="text-danger" *ngIf="submitted && f.repeatPassword.errors?.notValidInput; else requiredPasswordError">
+												{{f.repeatPassword.errors.notValidInput}}
+											</p>
+											<ng-template class="text-danger" #requiredPasswordError>
+												<p *ngIf="submitted && f.repeatPassword.errors">
+													Retype Password is Required.
+												</p>
+											</ng-template>									
+										</div>
+									</div>
+									<div class="row" *ngIf="!editUser">
+										<label class="col-2 control-label">Encrypted : </label>
+										<div class="col-3">
+											<input id="encrypted" name="encrypted" [formControl]="encrypted" type="checkbox"/>
+										</div>
+										<div class="col-6">										
+											
+										</div>
+									</div>
+									<div class="row">
+										<label class="col-2 control-label">Role : </label>
+										<div class="col-3 mb-2">
+											<select id="role" name="role" [formControl]="role" 
+													class="form-control" size="0" [ngClass]="{ 'is-invalid': submitted && f.role.errors }">
+												<option value="">Select One</option>
+												<option value="ROLE_USER">User</option>
+												<option value="ROLE_ADMIN">Admin</option>
+											</select>
+										</div>
+										<div class="col-6">										
+											<p class="text-danger" *ngIf="submitted && f.role.errors">
+												Role is Required.
+											</p>
+										</div>
+									</div>									
+							</div>
+							<div class="card-footer text-center">
+								<button class="btn btn-sm btn-secondary" type="button" (click)="gotoWelcome()" value="Cancel">
+									<i class="fa fa-times-circle"></i> Cancel
+								</button>&nbsp;
+								<button class="btn btn-sm btn-dark" type="reset" value="Reset" *ngIf="!editUser">
+									<i class="fa fa-refresh"></i> Reset
+								</button>
+								<button class="btn btn-sm btn-dark" type="button" (click)="ngOnInitFormBuilderForUpdate()"  value="Reset" *ngIf="editUser">
+									<i class="fa fa-refresh"></i> Reset
+								</button>
+								&nbsp;
+								<button class="btn btn-sm btn-info" type="button" (click)="saveUserData()" value="Save" *ngIf="!editUser">
+									<i class="fa fa-save"></i> Save Changes
+								</button>
+								<button class="btn btn-sm btn-info" type="button" (click)="updateData()" value="Update" *ngIf="editUser">
+									<i class="fa fa-save"></i> Update Changes
+								</button>
+							</div>
+						</form>		
+					</div>
+				</div>				
+		    </div>
+		    <!-- /#page-content-wrapper -->
+		  </div>
+
+<app-footer className="fixed-bottom"></app-footer>

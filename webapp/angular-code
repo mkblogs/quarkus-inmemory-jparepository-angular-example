@@ -1,0 +1,17 @@
+# stage 1
+FROM node:latest as node
+LABEL stage=builder
+WORKDIR /app
+RUN chmod 755 /app
+COPY . .
+RUN npm install
+RUN npm run build
+
+# stage 2
+FROM nginx:alpine
+COPY nginx.conf /etc/nginx/nginx.conf
+#CMD cat nginx.conf
+COPY --from=node /app/dist/webapp /usr/share/nginx/html
+
+#Remove Image
+#RUN docker rmi -f label=stage=builder

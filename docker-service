@@ -1,0 +1,7 @@
+FROM quay.io/quarkus/centos-quarkus-maven:20.3.1-java11 AS build
+COPY pom.xml /tmp/
+COPY src /tmp/src/
+WORKDIR /tmp/
+RUN mvn clean package
+WORKDIR /tmp/target
+CMD ["java","-jar","QuarkusInMemoryExample-runner.jar"]

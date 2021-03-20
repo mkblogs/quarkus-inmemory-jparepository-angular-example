@@ -1,0 +1,63 @@
+version: '3'
+services: 
+  db:  
+    restart: always
+    image: mysql
+    container_name: quarkus-inmemory-mysql
+    ports:
+    - "3306:3306"
+    environment:
+     MYSQL_ALLOW_EMPTY_PASSWORD: "yes"
+     MYSQL_ROOT_PASSWORD: root   
+     MYSQL_DATABASE: quarkus-inmemory
+     MYSQL_USER: quarkus-inmemory
+     MYSQL_PASSWORD: quarkus-inmemory
+     MYSQL_ROOT_HOST: '%'    
+    healthcheck:
+      test: "/usr/bin/mysql --user=quarkus-inmemory --password=quarkus-inmemory--execute \"SHOW DATABASES;\""
+      interval: 60s
+      timeout: 60s
+      retries: 10
+    networks:
+        - backbone  
+      
+  server-code:
+    restart: always
+    container_name: quarkus-inmemory-api
+    build:
+      context: .
+      dockerfile: docker-service
+    depends_on:
+     - db
+    links: 
+       - db 
+    expose:
+      - "8080"
+    ports:
+      - 8080:8080
+    environment:
+      WAIT_HOSTS: quarkus-inmemory-mysql:3306
+    networks: 
+        - backbone  
+      
+  ui-code:
+    restart: always
+    container_name: angularcode
+    build:
+      context: webapp
+      dockerfile: angular-code
+    links:
+       - server-code
+    expose: 
+      - "14200"
+    ports:
+      - 14200:80
+    networks:
+        - backbone  
+      
+networks:
+  backbone:
+   driver: bridge
+    
+    
+    

@@ -1,0 +1,67 @@
+<app-header activeURL="account"></app-header>
+
+<div class="d-flex" id="wrapper" [ngClass]="toggle ? 'toggled' : ''">
+	<!-- Sidebar -->
+	<div class="bg-light border-right" id="sidebar-wrapper">
+		<ul class="nav flex-column list-group">
+			<li class="nav-item">
+			  <a class="nav-link list-group-item-action" href="/accounts">Get All Accounts</a>
+			</li>
+			<li class="nav-item">
+			  <a class="nav-link list-group-item-action btn-info active" href="/account">Create New Account</a>
+			</li>
+		</ul>
+	</div>
+
+
+		    <!-- /#sidebar-wrapper -->
+
+		    <!-- Page Content -->
+		    <div id="page-content-wrapper">
+		      <div class="container-fluid">
+				<button class="btn btn-sm btn-info" id="menu-toggle" (click)="clickEvent()">Toggle Menu</button>				
+		      </div>
+					<br/>
+					<div class="container">
+						<div class="card">
+							<div class="card-header">
+									<strong><i class="fa fa-eye fa-lg"></i> Account</strong>
+							</div>
+							<div class="card-body">
+							   <div class="row">
+								 <label class="col-3 control-label">Id : </label>
+			 					 <div class="col-3">
+								        {{viewAccount.accountId}}
+								 </div>
+							   </div>
+							    <div class="row">
+								 <label class="col-3 control-label">Name : </label>
+			 					 <div class="col-3">
+								        {{viewAccount.name}}
+								 </div>
+							   </div>
+							    <div class="row">
+								 <label class="col-3 control-label">Type : </label>
+			 					 <div class="col-3">
+								        {{viewAccount.type}}
+								 </div>
+							   </div>
+							    <div class="row">
+								 <label class="col-3 control-label">Amount : </label>
+			 					 <div class="col-3">
+								        {{viewAccount.amount}}
+								 </div>
+							   </div>
+							</div>
+							<div class="card-footer">
+					  	  		  <input type="button" id="back"  data-id="adminlanding"  (click)="back()" class="btn btn-info" value="Back"> 
+						    </div>	
+						</div>
+					</div>
+		    </div>
+		    <!-- /#page-content-wrapper -->
+		  </div>
+
+<app-footer className="fixed-bottom"></app-footer>
+
+

@@ -1,0 +1,42 @@
+<app-header activeURL="user"></app-header>
+<div class="d-flex" id="wrapper" [ngClass]="toggle ? 'toggled' : ''">
+	<!-- Sidebar -->
+	<div class="bg-light border-right" id="sidebar-wrapper">
+		<ul class="nav flex-column list-group">
+			<li class="nav-item">
+			   <a class="nav-link list-group-item-action" href="/users">Get All Users</a>
+			</li>
+			<li class="nav-item">
+			   <a class="nav-link list-group-item-action btn-info active" href="/user">Create New User</a>
+			</li>
+		</ul>
+	</div>
+
+
+	<!-- /#sidebar-wrapper -->
+
+	<!-- Page Content -->
+	<div id="page-content-wrapper">
+		<div class="container-fluid">
+		<button class="btn btn-sm btn-info" id="menu-toggle" (click)="clickEvent()">Toggle Menu</button>				
+		</div>
+			<br/>
+			<div class="container">
+				<div class="card">
+					<div class="card-header">
+						<strong><i class="fa fa-plus-circle fa-lg"></i> User</strong>
+					</div>
+					<div class="card-body">
+						<div class="row">
+							 <div class="col-12">
+                                Successfully Inserted User Record
+							 </div>
+						</div>
+					</div>			
+				</div>
+			</div>
+	</div>
+	<!-- /#page-content-wrapper -->
+</div>
+
+<app-footer className="fixed-bottom"></app-footer>

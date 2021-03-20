@@ -1,0 +1,5 @@
+FROM maslick/minimalka:jdk11
+COPY QuarkusInMemoryExample-runner.jar /tmp/
+COPY lib /tmp/lib/
+WORKDIR /tmp
+CMD ["java","-jar","QuarkusInMemoryExample-runner.jar"]

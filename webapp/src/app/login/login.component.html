@@ -1,0 +1,39 @@
+
+<div class="login">
+<div class="container col-lg-3 col-lg-offset-4">
+	<div class="card">
+		<div class="card-header">
+			<strong><i class="fa fa-user"></i> Login</strong>
+		</div>
+		<form class="form-signin form-horizontal" [formGroup]="loginForm" method="POST">
+			<div class="card-body">
+				<div class="input-group mb-3">
+					<div class="input-group-prepend">
+						<span class="input-group-text">
+							<i class="fa fa-user"></i>
+						</span>
+					</div>
+					<input type="text" placeholder="Username" [formControl]="username" class="form-control" 
+					      [ngClass]="{ 'is-invalid': submitted && f.username.errors }" />                    				
+				</div>
+				<div class="input-group mb-3">
+					<div class="input-group-prepend">
+						<span class="input-group-text">
+							<i class="fa fa-lock fa-lg"></i>
+						</span>
+					</div>
+					<input type="password" placeholder="Password" [formControl]="password" class="form-control" 
+					      [ngClass]="{ 'is-invalid': submitted && f.password.errors }" />                    				
+				</div>				
+			</div>
+			<div class="card-footer" style="background: #fff;border-color: #f1f5fc;color: #777;">
+				<span>
+					<button type="submit" class="btn btn-outline-secondary btn-block" (click)="onSubmit()">
+						<i class="fa fa-sign-in"></i> Login
+					</button>
+				</span>
+			</div>
+		</form>
+	</div>
+</div>
+</div>

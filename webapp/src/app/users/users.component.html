@@ -1,0 +1,143 @@
+<app-header activeURL="user"></app-header>
+
+<div class="d-flex" id="wrapper" [ngClass]="toggle ? 'toggled' : ''">
+	<!-- Sidebar -->
+	<div class="bg-light border-right" id="sidebar-wrapper">
+		<ul class="nav flex-column list-group">
+			<li class="nav-item">
+			   <a class="nav-link list-group-item-action btn-info active" href="/users">Get All Users</a>
+			</li>
+			<li class="nav-item">
+			   <a class="nav-link list-group-item-action" href="/user">Create New User</a>
+			</li>
+		</ul>
+	</div>
+
+
+	<!-- /#sidebar-wrapper -->
+
+	<!-- Page Content -->
+	<div id="page-content-wrapper">
+		<div class="container-fluid">
+		<button class="btn btn-sm btn-info" id="menu-toggle" (click)="clickEvent()">Toggle Menu</button>				
+		</div>
+		<br/>
+		<div class="container">
+			<div class="card">
+				<div class="card-header">
+					<strong><i class="fa fa-search fa-lg"></i> User List</strong>
+				</div>
+				<form class="form-horizontal" [formGroup]="userForm">
+					<div class="card-body">
+						<div class="row">
+							<div class="col-3">
+								<label class="col-form-label form-control-label">Username</label>
+								<input  [formControl]="userName" placeholder="Enter Username"
+									class="form-control" type="text" value="">
+							</div>
+							<div class="col-3">
+									<label class="col-form-label form-control-label">First Name</label>
+									<input [formControl]="firstName" placeholder="Enter First Name"
+									class="form-control" type="text" value="">
+							</div>
+							<div class="col-3">
+									<label class="col-form-label form-control-label">Last Name</label>
+									<input [formControl]="lastName" placeholder="Enter Last Name"
+									class="form-control" type="text" value="">
+							</div>
+							<div class="col-3" style="display:flex;">
+								<button class="btn btn-sm btn-info mt-auto" type="button"  (click)="getAllUsers()" value="Save">
+									<i class="fa fa-search"></i> Search
+									</button>&nbsp;&nbsp;&nbsp;
+									<button class="btn btn-sm btn-dark mt-auto" type="reset" value="Reset">
+									<i class="fa fa-refresh"></i> Reset
+									</button>
+							</div>
+						</div>
+					</div>
+				</form>
+					<hr/>
+				<div class="card-body">
+					<div class="row">
+						<div class="col-12">							
+							<table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="compact row-border hover cell-border">
+								<thead>
+									<tr>
+										<th>ID</th>
+										<th>User Name</th>
+										<th>First Name</th>
+										<th>Last Name</th>
+										<th>Actions</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr *ngFor="let user of users">
+										<td>{{ user.id }}</td>
+										<td>{{ user.loginName }}</td>
+										<td>{{ user.firstName }}</td>
+										<td>{{ user.lastName }}</td>
+										<td>
+											<button class="btn" (click)="updateData(user.id)"><i class="fa fa-edit"></i></button> /
+											<button class="btn" (click)="viewData(user.id)"><i class="fa fa-eye"></i></button> /
+											<button class="btn" (click)="deleteData(user.id)"><i class="fa fa-trash"></i></button>
+										</td>
+									</tr>
+								</tbody>
+							</table>
+							</div>
+					</div>
+				</div>
+			</div>
+		</div>				
+	</div>
+	<!-- /#page-content-wrapper -->
+    <ngx-spinner name="spinner"></ngx-spinner>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" #confirmModel="bs-modal" bsModal  tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-body">
+        <label> Are you sure to delete the record ?</label>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" (click)="cancelDelete()">Cancel</button>
+        <button type="button" class="btn btn-info" (click)="callDeleteFn()">Delete</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!--Success Modal -->
+<div class="modal fade" #successModel="bs-modal" bsModal  tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-body">
+        <label> Successfully Deleted Record<br/> It will redirect to the  home page</label>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" (click)="successModelClose()" >Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!--Failure Modal -->
+<div class="modal fade" #failureModel="bs-modal" bsModal tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-body">
+        <label> Failed to Delete Record<br/> It will redirect to the  home page</label>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" (click)="failureModelClose()">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<app-footer></app-footer>
+
+
+
